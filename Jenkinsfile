@@ -1,14 +1,3 @@
-// FoodGo CI/CD Pipeline
-//
-// Expected Jenkins credentials (configured in Jenkins, never in this file):
-//   - 'aws-credentials'      : AWS access key/secret (or use an instance profile)
-//   - 'sonarqube-token'      : SonarQube authentication token
-//   Jenkins tools configured : 'Maven-3', 'JDK-21' (names must match below,
-//                              or update the `tools` block to match your setup)
-//
-// Expected Jenkins plugins: Pipeline, Git, SonarQube Scanner, Docker Pipeline,
-//                           AWS Steps / Credentials Binding, Ansible.
-
 pipeline {
     agent any
 
@@ -18,13 +7,11 @@ pipeline {
     }
 
     environment {
-        AWS_REGION        = 'ap-south-1'
-        ECR_REPO_BACKEND  = 'foodgo-backend'
-        ECR_REPO_FRONTEND = 'foodgo-frontend'
-        ECR_REGISTRY      = credentials('ecr-registry-url') // e.g. 123456789012.dkr.ecr.ap-south-1.amazonaws.com
-        EKS_CLUSTER_NAME  = 'foodgo-cluster'
-        IMAGE_TAG         = "${env.BUILD_NUMBER}"
-        SONAR_HOST_URL    = 'http://localhost:9000'
+        DOCKERHUB_USER = 'akshayasahh'
+        BACKEND_IMAGE  = 'akshayasahh/foodgo-backend'
+        FRONTEND_IMAGE = 'akshayasahh/foodgo-frontend'
+        IMAGE_TAG      = "${env.BUILD_NUMBER}"
+        SONAR_HOST_URL = 'http://localhost:9000'
     }
 
     options {
@@ -66,12 +53,17 @@ pipeline {
             steps {
                 dir('backend') {
                     withSonarQubeEnv('SonarQubeServer') {
-                        withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
-                            sh """
+                        withCredentials([
+                            string(
+                                credentialsId: 'sonarqube-token',
+                                variable: 'SONAR_TOKEN'
+                            )
+                        ]) {
+                            sh '''
                                 mvn -B sonar:sonar \
-                                  -Dsonar.host.url=${SONAR_HOST_URL} \
-                                  -Dsonar.login=${SONAR_TOKEN}
-                            """
+                                  -Dsonar.host.url=$SONAR_HOST_URL \
+                                  -Dsonar.token=$SONAR_TOKEN
+                            '''
                         }
                     }
                 }
@@ -89,120 +81,139 @@ pipeline {
         stage('6. Trivy Filesystem Scan') {
             steps {
                 sh '''
-                    trivy fs --exit-code 1 --severity HIGH,CRITICAL --no-progress backend/ || \
-                    (echo "Trivy found HIGH/CRITICAL vulnerabilities in the filesystem scan" && exit 1)
+                    trivy fs \
+                      --exit-code 1 \
+                      --severity HIGH,CRITICAL \
+                      --no-progress \
+                      backend/ || {
+                        echo "Trivy found HIGH/CRITICAL vulnerabilities in the backend filesystem"
+                        exit 1
+                    }
                 '''
             }
         }
 
         stage('7. Docker Build') {
             steps {
-                dir('backend') {
-                    sh "docker build -t ${ECR_REPO_BACKEND}:${IMAGE_TAG} ."
-                }
-                dir('frontend') {
-                    sh "docker build -t ${ECR_REPO_FRONTEND}:${IMAGE_TAG} ."
-                }
+                sh '''
+                    docker build \
+                      -t ${BACKEND_IMAGE}:${IMAGE_TAG} \
+                      backend/
+
+                    docker build \
+                      -t ${FRONTEND_IMAGE}:${IMAGE_TAG} \
+                      frontend/
+                '''
             }
         }
 
         stage('8. Trivy Docker Image Scan') {
             steps {
-                sh """
-                    trivy image --exit-code 1 --severity HIGH,CRITICAL --no-progress ${ECR_REPO_BACKEND}:${IMAGE_TAG} || \
-                    (echo "Trivy found HIGH/CRITICAL vulnerabilities in the backend image" && exit 1)
-                """
-                sh """
-                    trivy image --exit-code 1 --severity HIGH,CRITICAL --no-progress ${ECR_REPO_FRONTEND}:${IMAGE_TAG} || \
-                    (echo "Trivy found HIGH/CRITICAL vulnerabilities in the frontend image" && exit 1)
-                """
+                sh '''
+                    trivy image \
+                      --exit-code 1 \
+                      --severity HIGH,CRITICAL \
+                      --no-progress \
+                      ${BACKEND_IMAGE}:${IMAGE_TAG}
+
+                    trivy image \
+                      --exit-code 1 \
+                      --severity HIGH,CRITICAL \
+                      --no-progress \
+                      ${FRONTEND_IMAGE}:${IMAGE_TAG}
+                '''
             }
         }
 
-        stage('9. AWS ECR Login') {
+        stage('9. Docker Hub Login') {
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-credentials'
-                ]]) {
-                    sh """
-                        aws ecr get-login-password --region ${AWS_REGION} | \
-                        docker login --username AWS --password-stdin ${ECR_REGISTRY}
-                    """
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-credentials',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_PASSWORD'
+                    )
+                ]) {
+                    sh '''
+                        echo "$DOCKER_PASSWORD" | \
+                        docker login \
+                          -u "$DOCKER_USERNAME" \
+                          --password-stdin
+                    '''
                 }
             }
         }
 
-        stage('10. Docker Push to ECR') {
+        stage('10. Push Images to Docker Hub') {
             steps {
-                sh """
-                    docker tag ${ECR_REPO_BACKEND}:${IMAGE_TAG} ${ECR_REGISTRY}/${ECR_REPO_BACKEND}:${IMAGE_TAG}
-                    docker push ${ECR_REGISTRY}/${ECR_REPO_BACKEND}:${IMAGE_TAG}
-
-                    docker tag ${ECR_REPO_FRONTEND}:${IMAGE_TAG} ${ECR_REGISTRY}/${ECR_REPO_FRONTEND}:${IMAGE_TAG}
-                    docker push ${ECR_REGISTRY}/${ECR_REPO_FRONTEND}:${IMAGE_TAG}
-                """
+                sh '''
+                    docker push ${BACKEND_IMAGE}:${IMAGE_TAG}
+                    docker push ${FRONTEND_IMAGE}:${IMAGE_TAG}
+                '''
             }
         }
 
-        stage('11. Ansible Deployment') {
+        stage('11. Ansible Deployment to Minikube') {
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-credentials'
-                ]]) {
-                    dir('ansible') {
-                        sh """
-                            ansible-playbook -i inventory deploy.yml \
-                              -e image_tag=${IMAGE_TAG} \
-                              -e ecr_registry=${ECR_REGISTRY} \
-                              -e aws_region=${AWS_REGION} \
-                              -e eks_cluster_name=${EKS_CLUSTER_NAME}
-                        """
-                    }
+                dir('ansible') {
+                    sh '''
+                        ansible-playbook \
+                          -i inventory \
+                          deploy.yml \
+                          -e image_tag=${IMAGE_TAG}
+                    '''
                 }
             }
         }
 
         stage('12. Kubernetes Rollout Status') {
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-credentials'
-                ]]) {
-                    sh """
-                        aws eks update-kubeconfig --name ${EKS_CLUSTER_NAME} --region ${AWS_REGION}
-                        kubectl rollout status deployment/foodgo-backend -n foodgo --timeout=180s
-                        kubectl rollout status deployment/foodgo-frontend -n foodgo --timeout=180s
-                    """
-                }
+                sh '''
+                    kubectl rollout status \
+                      deployment/foodgo-backend \
+                      -n foodgo \
+                      --timeout=180s
+
+                    kubectl rollout status \
+                      deployment/foodgo-frontend \
+                      -n foodgo \
+                      --timeout=180s
+                '''
             }
         }
 
         stage('13. Health Check') {
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-credentials'
-                ]]) {
-                    sh '''
-                        set -e
-                        BACKEND_POD=$(kubectl get pods -n foodgo -l app=foodgo-backend -o jsonpath="{.items[0].metadata.name}")
-                        kubectl exec -n foodgo "$BACKEND_POD" -- wget -qO- http://localhost:8080/actuator/health | grep -q '"status":"UP"'
-                        echo "Backend health check passed."
-                    '''
-                }
+                sh '''
+                    set -e
+
+                    BACKEND_POD=$(kubectl get pods \
+                      -n foodgo \
+                      -l app=foodgo-backend \
+                      -o jsonpath="{.items[0].metadata.name}")
+
+                    kubectl exec \
+                      -n foodgo \
+                      "$BACKEND_POD" \
+                      -- wget -qO- \
+                      http://localhost:8080/actuator/health
+
+                    echo ""
+                    echo "Backend health check passed."
+                '''
             }
         }
     }
 
     post {
         success {
-            echo "FoodGo build #${env.BUILD_NUMBER} deployed successfully to EKS cluster ${EKS_CLUSTER_NAME}."
+            echo "FoodGo build #${env.BUILD_NUMBER} deployed successfully to Minikube."
         }
+
         failure {
-            echo "FoodGo build #${env.BUILD_NUMBER} failed. Check the stage logs above for details."
+            echo "FoodGo build #${env.BUILD_NUMBER} failed. Check the stage logs above."
         }
+
         always {
             sh 'docker image prune -f || true'
         }
