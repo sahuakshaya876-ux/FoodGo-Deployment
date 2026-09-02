@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: foodgo-backend
+  namespace: foodgo
+  labels:
+    app: foodgo-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: foodgo-backend
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080

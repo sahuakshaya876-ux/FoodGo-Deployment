@@ -1,0 +1,9 @@
+# Ansible connects to the EKS control plane via kubectl/AWS CLI on the
+# Jenkins agent itself (or a bastion host with cluster access configured),
+# so a single "localhost" entry is sufficient — Kubernetes API calls are
+# made over the network via kubeconfig, not SSH to individual nodes.
+[eks_control]
+localhost ansible_connection=local
+
+[eks_control:vars]
+ansible_python_interpreter=/usr/bin/python3

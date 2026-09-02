@@ -1,0 +1,82 @@
+# OPTIONAL: only needed if you are not using a managed database (e.g. AWS RDS)
+# for the EKS deployment. In production, prefer RDS and point DB_URL at it
+# via the ConfigMap instead of running Postgres inside the cluster.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foodgo-postgres
+  namespace: foodgo
+  labels:
+    app: foodgo-postgres
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: foodgo-postgres
+  template:
+    metadata:
+      labels:
+        app: foodgo-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: foodgo
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: foodgo-config
+                  key: DB_USERNAME
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: foodgo-secret
+                  key: DB_PASSWORD
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "postgres"]
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            exec:
+              command: ["pg_isready", "-U", "postgres"]
+            initialDelaySeconds: 20
+            periodSeconds: 20
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: foodgo-postgres-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: foodgo-postgres-pvc
+  namespace: foodgo
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: foodgo-postgres
+  namespace: foodgo
+spec:
+  type: ClusterIP
+  selector:
+    app: foodgo-postgres
+  ports:
+    - port: 5432
+      targetPort: 5432

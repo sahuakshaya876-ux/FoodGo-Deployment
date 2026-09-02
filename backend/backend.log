@@ -1,0 +1,367 @@
+nohup: ignoring input
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-09-01T10:28:59.198+05:30  INFO 7080 --- [foodgo-backend] [           main] com.foodgo.FoodGoApplication             : Starting FoodGoApplication v1.0.0 using Java 21.0.12 with PID 7080 (/home/user/Documents/Akshaya/FoodGo/backend/target/foodgo-backend.jar started by user in /home/user/Documents/Akshaya/FoodGo/backend)
+2026-09-01T10:28:59.203+05:30  INFO 7080 --- [foodgo-backend] [           main] com.foodgo.FoodGoApplication             : No active profile set, falling back to 1 default profile: "default"
+2026-09-01T10:29:01.586+05:30  INFO 7080 --- [foodgo-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-01T10:29:01.718+05:30  INFO 7080 --- [foodgo-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 122 ms. Found 11 JPA repository interfaces.
+2026-09-01T10:29:03.462+05:30  INFO 7080 --- [foodgo-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-09-01T10:29:03.504+05:30  INFO 7080 --- [foodgo-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-01T10:29:03.505+05:30  INFO 7080 --- [foodgo-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-09-01T10:29:03.592+05:30  INFO 7080 --- [foodgo-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-09-01T10:29:03.596+05:30  INFO 7080 --- [foodgo-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4310 ms
+2026-09-01T10:29:04.316+05:30  INFO 7080 --- [foodgo-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-01T10:29:04.413+05:30  INFO 7080 --- [foodgo-backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-09-01T10:29:04.472+05:30  INFO 7080 --- [foodgo-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-09-01T10:29:05.237+05:30  INFO 7080 --- [foodgo-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-01T10:29:05.277+05:30  INFO 7080 --- [foodgo-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-01T10:29:05.902+05:30  INFO 7080 --- [foodgo-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5e1a7d3
+2026-09-01T10:29:05.904+05:30  INFO 7080 --- [foodgo-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-01T10:29:05.951+05:30  WARN 7080 --- [foodgo-backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-01T10:29:08.222+05:30  INFO 7080 --- [foodgo-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-01T10:29:08.536+05:30  INFO 7080 --- [foodgo-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-01T10:29:09.681+05:30  WARN 7080 --- [foodgo-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2026-09-01T10:29:09.811+05:30  INFO 7080 --- [foodgo-backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-01T10:29:11.632+05:30  INFO 7080 --- [foodgo-backend] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'
+2026-09-01T10:29:12.584+05:30  INFO 7080 --- [foodgo-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-09-01T10:29:12.623+05:30  INFO 7080 --- [foodgo-backend] [           main] com.foodgo.FoodGoApplication             : Started FoodGoApplication in 14.416 seconds (process running for 15.342)
+Updated food image: Chicken Biryani -> https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Butter Masala -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated food image: Masala Dosa -> https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken 65 -> https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80
+Updated food image: Gulab Jamun -> https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80
+Updated food image: Butter Naan -> https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80
+Updated food image: Dal Tadka -> https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Spice Garden
+Updated food image: Andhra Chicken Curry -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Gongura Chicken -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Pesarattu -> https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80
+Updated food image: Pulihora -> https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80
+Updated food image: Bobbatlu -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Garelu -> https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Andhra Ruchulu
+Updated food image: Tandoori Chicken -> https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80
+Updated food image: Butter Chicken -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Garlic Naan -> https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80
+Updated food image: Dal Makhani -> https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Tikka -> https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80
+Updated food image: Chole Bhature -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Aloo Paratha -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Tandoori House
+Updated food image: Idli Sambar -> https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80
+Updated food image: Medu Vada -> https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80
+Updated food image: Plain Dosa -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated food image: Uttapam -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated food image: Curd Rice -> https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80
+Updated food image: Pongal -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Rava Dosa -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated restaurant: South Indian Express
+Updated food image: Hyderabadi Chicken Biryani -> https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80
+Updated food image: Mutton Biryani -> https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80
+Updated food image: Egg Biryani -> https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Biryani -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken 65 -> https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Tikka Biryani -> https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Biryani -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Biryani Junction
+Updated food image: Fish Fry -> https://images.unsplash.com/photo-1544943910-4c1dc44aab44?auto=format&fit=crop&w=800&q=80
+Updated food image: Prawn Curry -> https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80
+Updated food image: Fish Curry -> https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=800&q=80
+Updated food image: Prawn Fry -> https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80
+Updated food image: Lemon Rice -> https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Coastal Kitchen
+Updated food image: Margherita Pizza -> https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80
+Updated food image: Farmhouse Pizza -> https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Pizza -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Garlic Bread -> https://images.unsplash.com/photo-1573140401552-3fab0b24306f?auto=format&fit=crop&w=800&q=80
+Updated food image: Cheese Burst Pizza -> https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=800&q=80
+Updated food image: Creamy Alfredo Pasta -> https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80
+Updated food image: Lasagna -> https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Pizza Corner
+Updated food image: Classic Chicken Burger -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Burger -> https://images.unsplash.com/photo-1520072959219-c595dc870360?auto=format&fit=crop&w=800&q=80
+Updated food image: Cheese Burger -> https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=800&q=80
+Updated food image: French Fries -> https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Nuggets -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Wrap -> https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800&q=80
+Updated food image: Hot Dog -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Burger Hub
+Updated food image: Veggie Salad -> https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Salad -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Fruit Bowl -> https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Bowl -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated food image: Sprout Salad -> https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Healthy Bowl
+Updated food image: Veg Hakka Noodles -> https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Noodles -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Fried Rice -> https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Fried Rice -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Gobi Manchurian -> https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80
+Updated food image: Spring Rolls -> https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80
+Updated food image: Chilli Paneer -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Wok & Roll
+Updated food image: Cappuccino -> https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80
+Updated food image: Cold Coffee -> https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Sandwich -> https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80
+Updated food image: Chocolate Cake -> https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80
+Updated food image: French Toast -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Cafe Coffee Daylight
+Updated food image: Mutton Korma -> https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Korma -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Seekh Kebab -> https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Tikka -> https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80
+Updated food image: Shahi Paneer -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Royal Mughlai
+Updated food image: Mysore Masala Dosa -> https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80
+Updated food image: Cheese Dosa -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Dosa -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated food image: Onion Dosa -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated food image: Rava Dosa -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Dosa Point
+Updated food image: Chole Bhature -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Rajma Chawal -> https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Tikka -> https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80
+Updated food image: Aloo Paratha -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Dal Tadka -> https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Punjabi Tadka
+Updated food image: Chocolate Cake -> https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80
+Updated food image: Red Velvet Cake -> https://images.unsplash.com/photo-1586788680434-30d324b2d46f?auto=format&fit=crop&w=800&q=80
+Updated food image: Chocolate Brownie -> https://images.unsplash.com/photo-1564355808539-22fda35bed7e?auto=format&fit=crop&w=800&q=80
+Updated food image: Vanilla Ice Cream -> https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80
+Updated food image: Strawberry Sundae -> https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=800&q=80
+Updated food image: Cheesecake -> https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=80
+Updated food image: Donut -> https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80
+Updated restaurant: The Dessert House
+Updated food image: Veg Momos -> https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Momos -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Fried Momos -> https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80
+Updated food image: Chilli Momos -> https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80
+Updated food image: Spring Rolls -> https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Momos & More
+Updated food image: Andhra Meals -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Fry -> https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80
+Updated food image: Mutton Fry -> https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80
+Updated food image: Tomato Pappu -> https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80
+Updated food image: Rasam Rice -> https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Andhra Spice Box
+Updated food image: Grilled Chicken -> https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Seekh Kebab -> https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80
+Updated food image: Tandoori Wings -> https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80
+Updated food image: Grilled Paneer -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated food image: BBQ Chicken -> https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Grill Nation
+Updated food image: Chicken Biryani -> https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Butter Masala -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated food image: Masala Dosa -> https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken 65 -> https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80
+Updated food image: Gulab Jamun -> https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80
+Updated food image: Butter Naan -> https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80
+Updated food image: Dal Tadka -> https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Spice Garden
+Updated food image: Andhra Chicken Curry -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Gongura Chicken -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Pesarattu -> https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80
+Updated food image: Pulihora -> https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80
+Updated food image: Bobbatlu -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Garelu -> https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Andhra Ruchulu
+Updated food image: Tandoori Chicken -> https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80
+Updated food image: Butter Chicken -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Garlic Naan -> https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80
+Updated food image: Dal Makhani -> https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Tikka -> https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80
+Updated food image: Chole Bhature -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Aloo Paratha -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Tandoori House
+Updated food image: Idli Sambar -> https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80
+Updated food image: Medu Vada -> https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80
+Updated food image: Plain Dosa -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated food image: Uttapam -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated food image: Curd Rice -> https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80
+Updated food image: Pongal -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Rava Dosa -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated restaurant: South Indian Express
+Updated food image: Hyderabadi Chicken Biryani -> https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80
+Updated food image: Mutton Biryani -> https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80
+Updated food image: Egg Biryani -> https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Biryani -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken 65 -> https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Tikka Biryani -> https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Biryani -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Biryani Junction
+Updated food image: Fish Fry -> https://images.unsplash.com/photo-1544943910-4c1dc44aab44?auto=format&fit=crop&w=800&q=80
+Updated food image: Prawn Curry -> https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80
+Updated food image: Fish Curry -> https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=800&q=80
+Updated food image: Prawn Fry -> https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80
+Updated food image: Lemon Rice -> https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Coastal Kitchen
+Updated food image: Margherita Pizza -> https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80
+Updated food image: Farmhouse Pizza -> https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Pizza -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Garlic Bread -> https://images.unsplash.com/photo-1573140401552-3fab0b24306f?auto=format&fit=crop&w=800&q=80
+Updated food image: Cheese Burst Pizza -> https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=800&q=80
+Updated food image: Creamy Alfredo Pasta -> https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80
+Updated food image: Lasagna -> https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Pizza Corner
+Updated food image: Classic Chicken Burger -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Burger -> https://images.unsplash.com/photo-1520072959219-c595dc870360?auto=format&fit=crop&w=800&q=80
+Updated food image: Cheese Burger -> https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=800&q=80
+Updated food image: French Fries -> https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Nuggets -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Wrap -> https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800&q=80
+Updated food image: Hot Dog -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Burger Hub
+Updated food image: Veggie Salad -> https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Salad -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Fruit Bowl -> https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Bowl -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated food image: Sprout Salad -> https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Healthy Bowl
+Updated food image: Veg Hakka Noodles -> https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Noodles -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Fried Rice -> https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Fried Rice -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Gobi Manchurian -> https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80
+Updated food image: Spring Rolls -> https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80
+Updated food image: Chilli Paneer -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Wok & Roll
+Updated food image: Cappuccino -> https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80
+Updated food image: Cold Coffee -> https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Sandwich -> https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80
+Updated food image: Chocolate Cake -> https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80
+Updated food image: French Toast -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Cafe Coffee Daylight
+Updated food image: Mutton Korma -> https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Korma -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Seekh Kebab -> https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Tikka -> https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80
+Updated food image: Shahi Paneer -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Royal Mughlai
+Updated food image: Mysore Masala Dosa -> https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80
+Updated food image: Cheese Dosa -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Dosa -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated food image: Onion Dosa -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated food image: Rava Dosa -> https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Dosa Point
+Updated food image: Chole Bhature -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Rajma Chawal -> https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Tikka -> https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80
+Updated food image: Aloo Paratha -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Dal Tadka -> https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Punjabi Tadka
+Updated food image: Chocolate Cake -> https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80
+Updated food image: Red Velvet Cake -> https://images.unsplash.com/photo-1586788680434-30d324b2d46f?auto=format&fit=crop&w=800&q=80
+Updated food image: Chocolate Brownie -> https://images.unsplash.com/photo-1564355808539-22fda35bed7e?auto=format&fit=crop&w=800&q=80
+Updated food image: Vanilla Ice Cream -> https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80
+Updated food image: Strawberry Sundae -> https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=800&q=80
+Updated food image: Cheesecake -> https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=80
+Updated food image: Donut -> https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80
+Updated restaurant: The Dessert House
+Updated food image: Veg Momos -> https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Momos -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Fried Momos -> https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80
+Updated food image: Chilli Momos -> https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80
+Updated food image: Spring Rolls -> https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Momos & More
+Updated food image: Andhra Meals -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Fry -> https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80
+Updated food image: Mutton Fry -> https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80
+Updated food image: Tomato Pappu -> https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80
+Updated food image: Rasam Rice -> https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Andhra Spice Box
+Updated food image: Grilled Chicken -> https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Seekh Kebab -> https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80
+Updated food image: Tandoori Wings -> https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80
+Updated food image: Grilled Paneer -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated food image: BBQ Chicken -> https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Grill Nation
+Updated food image: Veg Thali -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Fried Rice -> https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Manchurian -> https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80
+Updated food image: Palak Paneer -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated food image: Jeera Rice -> https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80
+Updated restaurant: Veggie Paradise
+Updated food image: Special Chicken Biryani -> https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Butter Masala -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Fried Rice -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Pizza -> https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80
+Updated food image: Brownie -> https://images.unsplash.com/photo-1564355808539-22fda35bed7e?auto=format&fit=crop&w=800&q=80
+Updated restaurant: FoodGo Special
+Updated food image: Pani Puri -> https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80
+Updated food image: Samosa -> https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80
+Updated food image: Pav Bhaji -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Bhel Puri -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Aloo Tikki -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Dahi Puri -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Vada Pav -> https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Fried Rice -> https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Fried Rice -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Schezwan Fried Rice -> https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80
+Updated food image: Egg Fried Rice -> https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80
+Updated food image: Paneer Fried Rice -> https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Hakka Noodles -> https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Hakka Noodles -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Schezwan Noodles -> https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80
+Updated food image: Hot and Sour Soup -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Sweet Corn Soup -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Manchow Soup -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Tomato Soup -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Gobi Manchurian -> https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80
+Updated food image: Chilli Paneer -> https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80
+Updated food image: Chilli Chicken -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Spring Rolls -> https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80
+Updated food image: Penne Arrabbiata -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: White Sauce Pasta -> https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80
+Updated food image: Red Sauce Pasta -> https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?auto=format&fit=crop&w=800&q=80
+Updated food image: Cheese Garlic Bread -> https://images.unsplash.com/photo-1573140401552-3fab0b24306f?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Wrap -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Wrap -> https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Shawarma -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Cheese Sandwich -> https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80
+Updated food image: Chicken Sandwich -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Crispy Chicken Burger -> https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80
+Updated food image: Veg Cheese Burger -> https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=800&q=80
+Updated food image: Peri Peri Fries -> https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80
+Updated food image: Cheese Fries -> https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&w=800&q=80
+Updated food image: Onion Rings -> https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=800&q=80
+Updated food image: Chocolate Brownie -> https://images.unsplash.com/photo-1564355808539-22fda35bed7e?auto=format&fit=crop&w=800&q=80
+Updated food image: Chocolate Lava Cake -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Gulab Jamun -> https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80
+Updated food image: Rasmalai -> https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80
+Updated food image: Mango Ice Cream -> https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80
+Updated food image: Brownie Sundae -> https://images.unsplash.com/photo-1564355808539-22fda35bed7e?auto=format&fit=crop&w=800&q=80
+Updated restaurant: FoodGo Street Kitchen
+
+============================================================
+          FOODGO DATA SEEDER COMPLETED
+============================================================
+20+ restaurants created/updated
+Different food categories added
+Pani Puri added
+Fried Rice added
+Soups added
+Noodles added
+Momos added
+Pasta added
+Burgers added
+Sandwiches added
+Desserts added
+Biryani Junction image updated
+Missing food items automatically added
+Owner password: FoodGo123
+============================================================
+
+2026-09-01T10:33:28.077+05:30  INFO 7080 --- [foodgo-backend] [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-01T10:33:28.077+05:30  INFO 7080 --- [foodgo-backend] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-01T10:33:28.081+05:30  INFO 7080 --- [foodgo-backend] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-09-01T10:36:36.195+05:30  INFO 7080 --- [foodgo-backend] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-01T10:36:36.201+05:30  INFO 7080 --- [foodgo-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-09-01T10:36:36.229+05:30  INFO 7080 --- [foodgo-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

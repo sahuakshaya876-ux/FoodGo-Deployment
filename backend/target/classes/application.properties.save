@@ -1,0 +1,31 @@
+spring.application.name=foodgo-backend
+
+# ---------- Database ----------
+spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/foodgo}
+spring.datasource.username=${DB_USERNAME:postgres}
+spring.datasource.password=${DB_PASSWORD:postgres}
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.jpa.hibernate.ddl-auto=${DDL_AUTO:update}
+spring.jpa.show-sql=${SHOW_SQL:false}
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.open-in-view=false
+
+# ---------- JWT ----------
+jwt.secret=${JWT_SECRET:change-me-in-development-please-use-a-long-random-secret-key}
+jwt.expiration-ms=${JWT_EXPIRATION_MS:86400000}
+
+# ---------- Server ----------
+server.port=${SERVER_PORT:8081}
+
+# ---------- Actuator ----------
+management.endpoints.web.exposure.include=health,info
+management.endpoint.health.show-details=never
+
+# ---------- Jackson ----------
+spring.jackson.default-property-inclusion=non_null
+
+# ---------- Logging ----------
+logging.level.com.foodgo=INFO
+logging.level.org.springframework.security=WARN

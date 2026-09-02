@@ -1,0 +1,54 @@
+# Local development stack only. NOT used for the Kubernetes/EKS deployment path.
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: foodgo-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: foodgo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - foodgo-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: foodgo-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/foodgo
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      JWT_SECRET: local-development-secret-change-in-production-please
+      JWT_EXPIRATION_MS: 86400000
+      SERVER_PORT: 8081
+    ports:
+      - "8081:8081"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: http://localhost:8081/api
+    container_name: foodgo-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  foodgo-db-data:

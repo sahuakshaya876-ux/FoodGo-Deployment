@@ -1,0 +1,3110 @@
+package com.foodgo.config;
+
+import com.foodgo.food.FoodItem;
+import com.foodgo.food.FoodItemRepository;
+import com.foodgo.restaurant.Restaurant;
+import com.foodgo.restaurant.RestaurantRepository;
+import com.foodgo.restaurant.RestaurantStatus;
+import com.foodgo.user.Role;
+import com.foodgo.user.User;
+import com.foodgo.user.UserRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
+
+@Configuration
+public class DataSeeder {
+
+    @Bean
+    CommandLineRunner seedData(
+            UserRepository userRepository,
+            RestaurantRepository restaurantRepository,
+            FoodItemRepository foodItemRepository,
+            PasswordEncoder passwordEncoder) {
+
+        return args -> {
+
+            String password = passwordEncoder.encode("FoodGo123");
+
+            // ============================================================
+            // 1. SPICE GARDEN - NORTH INDIAN
+            // ============================================================
+            createRestaurant(
+                    "owner1@foodgo.com",
+                    "Spice Garden",
+                    "Delicious Indian food and traditional meals",
+                    "Indian",
+                    "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1000&q=80",
+                    "Main Road",
+                    "Srikakulam",
+                    18.2949,
+                    83.8938,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Chicken Biryani",
+                                    "Aromatic basmati rice with spicy chicken",
+                                    220,
+                                    "https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Paneer Butter Masala",
+                                    "Creamy tomato gravy with soft paneer",
+                                    180,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Masala Dosa",
+                                    "Crispy dosa served with potato masala",
+                                    90,
+                                    "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chicken 65",
+                                    "Crispy spicy chicken starter",
+                                    190,
+                                    "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Gulab Jamun",
+                                    "Soft sweet dumplings in sugar syrup",
+                                    80,
+                                    "https://images.unsplash.com/photo-1601303516534-7d5a4d8b7b5d?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Butter Naan",
+                                    "Soft Indian naan with butter",
+                                    60,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Dal Tadka",
+                                    "Yellow lentils tempered with Indian spices",
+                                    130,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 2. ANDHRA RUCHULU - SOUTH INDIAN
+            // ============================================================
+            createRestaurant(
+                    "owner2@foodgo.com",
+                    "Andhra Ruchulu",
+                    "Authentic Andhra cuisine with traditional flavors",
+                    "Andhra",
+                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=1000&q=80",
+                    "RTC Complex Road",
+                    "Srikakulam",
+                    18.2970,
+                    83.8970,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Andhra Chicken Curry",
+                                    "Spicy Andhra style chicken curry",
+                                    210,
+                                    "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Gongura Chicken",
+                                    "Chicken cooked with tangy gongura leaves",
+                                    230,
+                                    "https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Pesarattu",
+                                    "Traditional green gram dosa",
+                                    80,
+                                    "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Pulihora",
+                                    "Tangy tamarind rice with peanuts",
+                                    70,
+                                    "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Bobbatlu",
+                                    "Traditional Andhra sweet flatbread",
+                                    75,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Garelu",
+                                    "Crispy traditional urad dal vada",
+                                    70,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 3. TANDOORI HOUSE - NORTH INDIAN
+            // ============================================================
+            createRestaurant(
+                    "owner3@foodgo.com",
+                    "Tandoori House",
+                    "North Indian tandoori and Mughlai specialties",
+                    "North Indian",
+                    "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1000&q=80",
+                    "Market Road",
+                    "Srikakulam",
+                    18.3010,
+                    83.9000,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Tandoori Chicken",
+                                    "Chicken marinated in yogurt and spices",
+                                    250,
+                                    "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Butter Chicken",
+                                    "Creamy tomato based chicken curry",
+                                    240,
+                                    "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Garlic Naan",
+                                    "Soft naan topped with garlic and butter",
+                                    60,
+                                    "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Dal Makhani",
+                                    "Slow cooked black lentils with butter",
+                                    150,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chicken Tikka",
+                                    "Tender grilled chicken pieces",
+                                    220,
+                                    "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Chole Bhature",
+                                    "Spicy chickpeas with fluffy bhature",
+                                    150,
+                                    "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Aloo Paratha",
+                                    "Punjabi potato stuffed flatbread",
+                                    100,
+                                    "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 4. SOUTH INDIAN EXPRESS - SOUTH INDIAN
+            // ============================================================
+            createRestaurant(
+                    "owner4@foodgo.com",
+                    "South Indian Express",
+                    "Fresh South Indian breakfast and meals",
+                    "South Indian",
+                    "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=1000&q=80",
+                    "College Road",
+                    "Srikakulam",
+                    18.2900,
+                    83.8900,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Idli Sambar",
+                                    "Soft steamed idlis with hot sambar",
+                                    60,
+                                    "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Medu Vada",
+                                    "Crispy urad dal fritters",
+                                    55,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Plain Dosa",
+                                    "Crispy traditional dosa",
+                                    70,
+                                    "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Uttapam",
+                                    "Thick dosa topped with fresh vegetables",
+                                    90,
+                                    "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Curd Rice",
+                                    "South Indian rice with creamy curd",
+                                    70,
+                                    "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Pongal",
+                                    "Traditional rice and lentil breakfast",
+                                    80,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Rava Dosa",
+                                    "Thin and crispy semolina dosa",
+                                    100,
+                                    "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 5. BIRYANI JUNCTION
+            // ============================================================
+            createRestaurant(
+                    "owner5@foodgo.com",
+                    "Biryani Junction",
+                    "Specialized biryani restaurant",
+                    "Biryani",
+
+                    // FIXED RESTAURANT IMAGE
+                    "https://images.unsplash.com/photo-1633945274405-b6c8069047b0",
+                    "Palakonda Road",
+                    "Srikakulam",
+                    18.3050,
+                    83.9050,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Hyderabadi Chicken Biryani",
+                                    "Fragrant basmati rice and tender chicken",
+                                    240,
+                                    "https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Mutton Biryani",
+                                    "Rich and flavorful mutton biryani",
+                                    290,
+                                    "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Egg Biryani",
+                                    "Basmati rice cooked with boiled eggs",
+                                    170,
+                                    "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Veg Biryani",
+                                    "Aromatic rice with fresh vegetables",
+                                    160,
+                                    "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chicken 65",
+                                    "Crispy spicy chicken starter",
+                                    190,
+                                    "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Chicken Tikka Biryani",
+                                    "Biryani with juicy grilled chicken tikka",
+                                    260,
+                                    "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Paneer Biryani",
+                                    "Fragrant basmati rice with spiced paneer",
+                                    190,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 6. COASTAL KITCHEN - SEAFOOD
+            // ============================================================
+            createRestaurant(
+                    "owner6@foodgo.com",
+                    "Coastal Kitchen",
+                    "Fresh seafood and coastal Indian cuisine",
+                    "Seafood",
+                    "https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=1000&q=80",
+                    "Beach Road",
+                    "Srikakulam",
+                    18.3100,
+                    83.9100,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Fish Fry",
+                                    "Crispy fried fish with coastal spices",
+                                    220,
+                                    "https://images.unsplash.com/photo-1544943910-4c1dc44aab44?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Prawn Curry",
+                                    "Fresh prawns in spicy coconut gravy",
+                                    260,
+                                    "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Fish Curry",
+                                    "Traditional spicy fish curry",
+                                    230,
+                                    "https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Prawn Fry",
+                                    "Crispy spicy prawns",
+                                    280,
+                                    "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Lemon Rice",
+                                    "Fresh lemon flavored rice",
+                                    80,
+                                    "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 7. PIZZA CORNER - ITALIAN
+            // ============================================================
+            createRestaurant(
+                    "owner7@foodgo.com",
+                    "Pizza Corner",
+                    "Freshly baked pizzas and Italian snacks",
+                    "Italian",
+                    "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80",
+                    "Main Bazaar",
+                    "Srikakulam",
+                    18.2950,
+                    83.8850,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Margherita Pizza",
+                                    "Classic tomato, mozzarella and basil pizza",
+                                    199,
+                                    "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Farmhouse Pizza",
+                                    "Pizza loaded with fresh vegetables",
+                                    249,
+                                    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chicken Pizza",
+                                    "Pizza topped with spicy chicken",
+                                    279,
+                                    "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Garlic Bread",
+                                    "Fresh baked garlic bread",
+                                    99,
+                                    "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Cheese Burst Pizza",
+                                    "Extra cheesy pizza with rich crust",
+                                    299,
+                                    "https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Creamy Alfredo Pasta",
+                                    "Italian pasta in creamy white sauce",
+                                    220,
+                                    "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Lasagna",
+                                    "Layered pasta with cheese and tomato sauce",
+                                    260,
+                                    "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 8. BURGER HUB - FAST FOOD
+            // ============================================================
+            createRestaurant(
+                    "owner8@foodgo.com",
+                    "Burger Hub",
+                    "Juicy burgers, fries and quick bites",
+                    "Fast Food",
+                    "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1000&q=80",
+                    "Station Road",
+                    "Srikakulam",
+                    18.2920,
+                    83.8990,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Classic Chicken Burger",
+                                    "Juicy chicken patty with fresh vegetables",
+                                    159,
+                                    "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Veg Burger",
+                                    "Crispy vegetable patty burger",
+                                    129,
+                                    "https://images.unsplash.com/photo-1520072959219-c595dc870360?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Cheese Burger",
+                                    "Classic burger with melted cheese",
+                                    179,
+                                    "https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("French Fries",
+                                    "Crispy golden potato fries",
+                                    99,
+                                    "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chicken Nuggets",
+                                    "Crispy bite sized chicken nuggets",
+                                    149,
+                                    "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Veg Wrap",
+                                    "Fresh vegetables wrapped in soft bread",
+                                    119,
+                                    "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Hot Dog",
+                                    "Classic hot dog with fresh toppings",
+                                    149,
+                                    "https://images.unsplash.com/photo-1612392062631-94dd858cba88?auto=format&fit=crop&w=800&q=80",
+                                    false)
+                    }
+            );
+
+            // ============================================================
+            // 9. HEALTHY BOWL
+            // ============================================================
+            createRestaurant(
+                    "owner9@foodgo.com",
+                    "Healthy Bowl",
+                    "Healthy salads, bowls and nutritious meals",
+                    "Healthy",
+                    "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1000&q=80",
+                    "Green Park Road",
+                    "Srikakulam",
+                    18.2880,
+                    83.8920,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Veggie Salad",
+                                    "Fresh seasonal vegetables with dressing",
+                                    140,
+                                    "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chicken Salad",
+                                    "Grilled chicken with fresh vegetables",
+                                    190,
+                                    "https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Fruit Bowl",
+                                    "Fresh mixed seasonal fruits",
+                                    130,
+                                    "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Paneer Bowl",
+                                    "Protein rich paneer and vegetable bowl",
+                                    180,
+                                    "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Sprout Salad",
+                                    "Fresh sprouts with vegetables",
+                                    110,
+                                    "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 10. WOK & ROLL - CHINESE
+            // ============================================================
+            createRestaurant(
+                    "owner10@foodgo.com",
+                    "Wok & Roll",
+                    "Chinese noodles, rice and Indo-Chinese dishes",
+                    "Chinese",
+                    "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1000&q=80",
+                    "Seven Roads Junction",
+                    "Srikakulam",
+                    18.2990,
+                    83.9020,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Veg Hakka Noodles",
+                                    "Stir fried noodles with vegetables",
+                                    140,
+                                    "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chicken Noodles",
+                                    "Stir fried noodles with chicken",
+                                    170,
+                                    "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Veg Fried Rice",
+                                    "Chinese style vegetable fried rice",
+                                    130,
+                                    "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chicken Fried Rice",
+                                    "Fried rice with spicy chicken",
+                                    170,
+                                    "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Gobi Manchurian",
+                                    "Crispy cauliflower in Manchurian sauce",
+                                    150,
+                                    "https://images.unsplash.com/photo-1625398407796-82650a8c1352?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Spring Rolls",
+                                    "Crispy vegetable spring rolls",
+                                    120,
+                                    "https://images.unsplash.com/photo-1548507200-2e5c7f2a2c5a?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chilli Paneer",
+                                    "Crispy paneer tossed in spicy Chinese sauce",
+                                    180,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 11. CAFE COFFEE DAYLIGHT
+            // ============================================================
+            createRestaurant(
+                    "owner11@foodgo.com",
+                    "Cafe Coffee Daylight",
+                    "Coffee, snacks, sandwiches and desserts",
+                    "Cafe",
+                    "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1000&q=80",
+                    "College Road",
+                    "Srikakulam",
+                    18.2870,
+                    83.8980,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Cappuccino",
+                                    "Rich espresso with steamed milk foam",
+                                    110,
+                                    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Cold Coffee",
+                                    "Chilled creamy coffee",
+                                    130,
+                                    "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Veg Sandwich",
+                                    "Fresh vegetable grilled sandwich",
+                                    120,
+                                    "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chocolate Cake",
+                                    "Rich chocolate cake slice",
+                                    140,
+                                    "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("French Toast",
+                                    "Golden toast with sweet toppings",
+                                    130,
+                                    "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 12. ROYAL MUGHLAI - NORTH INDIAN
+            // ============================================================
+            createRestaurant(
+                    "owner12@foodgo.com",
+                    "Royal Mughlai",
+                    "Royal Mughlai dishes and kebabs",
+                    "Mughlai",
+                    "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1000&q=80",
+                    "Maharaja Road",
+                    "Srikakulam",
+                    18.3040,
+                    83.8880,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Mutton Korma",
+                                    "Slow cooked mutton in rich gravy",
+                                    280,
+                                    "https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Chicken Korma",
+                                    "Creamy Mughlai chicken curry",
+                                    240,
+                                    "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Seekh Kebab",
+                                    "Grilled minced meat kebabs",
+                                    230,
+                                    "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Paneer Tikka",
+                                    "Grilled marinated paneer",
+                                    190,
+                                    "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Shahi Paneer",
+                                    "Paneer in rich royal gravy",
+                                    190,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 13. DOSA POINT - SOUTH INDIAN
+            // ============================================================
+            createRestaurant(
+                    "owner13@foodgo.com",
+                    "Dosa Point",
+                    "Variety of crispy dosas and South Indian food",
+                    "South Indian",
+                    "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=1000&q=80",
+                    "Municipal Road",
+                    "Srikakulam",
+                    18.2930,
+                    83.9100,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Mysore Masala Dosa",
+                                    "Spicy Mysore dosa with potato filling",
+                                    110,
+                                    "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Cheese Dosa",
+                                    "Crispy dosa with melted cheese",
+                                    130,
+                                    "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Paneer Dosa",
+                                    "Dosa filled with spicy paneer",
+                                    140,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Onion Dosa",
+                                    "Crispy dosa topped with onions",
+                                    100,
+                                    "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Rava Dosa",
+                                    "Thin crispy semolina dosa",
+                                    100,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 14. PUNJABI TADKA - NORTH INDIAN
+            // ============================================================
+            createRestaurant(
+                    "owner14@foodgo.com",
+                    "Punjabi Tadka",
+                    "Authentic Punjabi food and North Indian meals",
+                    "Punjabi",
+                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1000&q=80",
+                    "New Bridge Road",
+                    "Srikakulam",
+                    18.3000,
+                    83.8950,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Chole Bhature",
+                                    "Spicy chickpeas with fluffy bhature",
+                                    150,
+                                    "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Rajma Chawal",
+                                    "Rajma curry served with rice",
+                                    140,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Paneer Tikka",
+                                    "Char grilled marinated paneer",
+                                    190,
+                                    "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Aloo Paratha",
+                                    "Stuffed Punjabi potato flatbread",
+                                    100,
+                                    "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Dal Tadka",
+                                    "Yellow dal tempered with spices",
+                                    130,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 15. THE DESSERT HOUSE - DESSERTS
+            // ============================================================
+            createRestaurant(
+                    "owner15@foodgo.com",
+                    "The Dessert House",
+                    "Cakes, ice creams and sweet treats",
+                    "Desserts",
+                    "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=1000&q=80",
+                    "Market Street",
+                    "Srikakulam",
+                    18.2960,
+                    83.8840,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Chocolate Cake",
+                                    "Rich chocolate cake with cream",
+                                    160,
+                                    "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Red Velvet Cake",
+                                    "Soft red velvet cake with cream cheese",
+                                    180,
+                                    "https://images.unsplash.com/photo-1586788680434-30d324b2d46f?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chocolate Brownie",
+                                    "Warm chocolate brownie",
+                                    120,
+                                    "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Vanilla Ice Cream",
+                                    "Classic creamy vanilla ice cream",
+                                    90,
+                                    "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Strawberry Sundae",
+                                    "Ice cream with strawberry topping",
+                                    140,
+                                    "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Cheesecake",
+                                    "Creamy cheesecake with sweet topping",
+                                    180,
+                                    "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Donut",
+                                    "Soft glazed sweet donut",
+                                    90,
+                                    "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 16. MOMOS & MORE - ASIAN
+            // ============================================================
+            createRestaurant(
+                    "owner16@foodgo.com",
+                    "Momos & More",
+                    "Steamed momos and Asian street food",
+                    "Asian",
+                    "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=1000&q=80",
+                    "Bus Stand Road",
+                    "Srikakulam",
+                    18.3020,
+                    83.9100,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Veg Momos",
+                                    "Steamed dumplings filled with vegetables",
+                                    100,
+                                    "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chicken Momos",
+                                    "Steamed dumplings with chicken filling",
+                                    130,
+                                    "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Fried Momos",
+                                    "Crispy fried vegetable dumplings",
+                                    120,
+                                    "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chilli Momos",
+                                    "Spicy momos tossed with chilli sauce",
+                                    140,
+                                    "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Spring Rolls",
+                                    "Crispy vegetable spring rolls",
+                                    110,
+                                    "https://images.unsplash.com/photo-1548507200-2e5c7f2a2c5a?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 17. ANDHRA SPICE BOX
+            // ============================================================
+            createRestaurant(
+                    "owner17@foodgo.com",
+                    "Andhra Spice Box",
+                    "Spicy Andhra meals and local specialties",
+                    "Andhra",
+                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1000&q=80",
+                    "Rural Development Road",
+                    "Srikakulam",
+                    18.2860,
+                    83.9040,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Andhra Meals",
+                                    "Complete traditional Andhra meal",
+                                    180,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Chicken Fry",
+                                    "Spicy Andhra chicken fry",
+                                    210,
+                                    "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Mutton Fry",
+                                    "Spicy fried mutton pieces",
+                                    280,
+                                    "https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Tomato Pappu",
+                                    "Traditional tomato dal",
+                                    100,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("Rasam Rice",
+                                    "Spicy rasam with steamed rice",
+                                    80,
+                                    "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+                                    true)
+                    }
+            );
+
+            // ============================================================
+            // 18. GRILL NATION - GRILL
+            // ============================================================
+            createRestaurant(
+                    "owner18@foodgo.com",
+                    "Grill Nation",
+                    "Grilled chicken, kebabs and barbecue",
+                    "Grill",
+                    "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80",
+                    "Industrial Estate Road",
+                    "Srikakulam",
+                    18.3090,
+                    83.8990,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+                            food("Grilled Chicken",
+                                    "Juicy grilled chicken with herbs",
+                                    260,
+                                    "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Chicken Seekh Kebab",
+                                    "Spiced minced chicken kebab",
+                                    230,
+                                    "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Tandoori Wings",
+                                    "Smoky grilled chicken wings",
+                                    220,
+                                    "https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80",
+                                    false),
+
+                            food("Grilled Paneer",
+                                    "Char grilled paneer with spices",
+                                    200,
+                                    "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80",
+                                    true),
+
+                            food("BBQ Chicken",
+                                    "Barbecue glazed chicken",
+                                    270,
+                                    "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+                                    false)
+                    }
+            );
+
+            // ============================================================
+            // 1. SPICE GARDEN
+            // ============================================================
+
+            createRestaurant(
+                    "owner1@foodgo.com",
+                    "Spice Garden",
+                    "Delicious Indian food and traditional meals",
+                    "Indian",
+                    "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1000&q=80",
+                    "Main Road",
+                    "Srikakulam",
+                    18.2949,
+                    83.8938,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Chicken Biryani",
+                                    "Aromatic basmati rice with spicy chicken",
+                                    220,
+                                    "https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Paneer Butter Masala",
+                                    "Creamy tomato gravy with soft paneer",
+                                    180,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Masala Dosa",
+                                    "Crispy dosa served with potato masala",
+                                    90,
+                                    "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken 65",
+                                    "Crispy spicy chicken starter",
+                                    190,
+                                    "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Gulab Jamun",
+                                    "Soft sweet dumplings in sugar syrup",
+                                    80,
+                                    "https://images.unsplash.com/photo-1601303516534-7d5a4d8b7b5d?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Butter Naan",
+                                    "Soft Indian naan with butter",
+                                    60,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Dal Tadka",
+                                    "Yellow lentils tempered with Indian spices",
+                                    130,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 2. ANDHRA RUCHULU
+            // ============================================================
+
+            createRestaurant(
+                    "owner2@foodgo.com",
+                    "Andhra Ruchulu",
+                    "Authentic Andhra cuisine with traditional flavors",
+                    "Andhra",
+                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=1000&q=80",
+                    "RTC Complex Road",
+                    "Srikakulam",
+                    18.2970,
+                    83.8970,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Andhra Chicken Curry",
+                                    "Spicy Andhra style chicken curry",
+                                    210,
+                                    "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Gongura Chicken",
+                                    "Chicken cooked with tangy gongura leaves",
+                                    230,
+                                    "https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Pesarattu",
+                                    "Traditional green gram dosa",
+                                    80,
+                                    "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Pulihora",
+                                    "Tangy tamarind rice with peanuts",
+                                    70,
+                                    "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Bobbatlu",
+                                    "Traditional Andhra sweet flatbread",
+                                    75,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Garelu",
+                                    "Crispy traditional urad dal vada",
+                                    70,
+                                    "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 3. TANDOORI HOUSE
+            // ============================================================
+
+            createRestaurant(
+                    "owner3@foodgo.com",
+                    "Tandoori House",
+                    "North Indian tandoori and Mughlai specialties",
+                    "North Indian",
+                    "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1000&q=80",
+                    "Market Road",
+                    "Srikakulam",
+                    18.3010,
+                    83.9000,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Tandoori Chicken",
+                                    "Chicken marinated in yogurt and spices",
+                                    250,
+                                    "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Butter Chicken",
+                                    "Creamy tomato based chicken curry",
+                                    240,
+                                    "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Garlic Naan",
+                                    "Soft naan topped with garlic and butter",
+                                    60,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Dal Makhani",
+                                    "Slow cooked black lentils with butter",
+                                    150,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Tikka",
+                                    "Tender grilled chicken pieces",
+                                    220,
+                                    "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Chole Bhature",
+                                    "Spicy chickpeas with fluffy bhature",
+                                    150,
+                                    "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Aloo Paratha",
+                                    "Punjabi potato stuffed flatbread",
+                                    100,
+                                    "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 4. SOUTH INDIAN EXPRESS
+            // ============================================================
+
+            createRestaurant(
+                    "owner4@foodgo.com",
+                    "South Indian Express",
+                    "Fresh South Indian breakfast and meals",
+                    "South Indian",
+                    "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=1000&q=80",
+                    "College Road",
+                    "Srikakulam",
+                    18.2900,
+                    83.8900,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Idli Sambar",
+                                    "Soft steamed idlis with hot sambar",
+                                    60,
+                                    "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Medu Vada",
+                                    "Crispy urad dal fritters",
+                                    55,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Plain Dosa",
+                                    "Crispy traditional dosa",
+                                    70,
+                                    "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Uttapam",
+                                    "Thick dosa topped with fresh vegetables",
+                                    90,
+                                    "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Curd Rice",
+                                    "South Indian rice with creamy curd",
+                                    70,
+                                    "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Pongal",
+                                    "Traditional rice and lentil breakfast",
+                                    80,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Rava Dosa",
+                                    "Thin and crispy semolina dosa",
+                                    100,
+                                    "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 5. BIRYANI JUNCTION
+            // ============================================================
+
+            createRestaurant(
+                    "owner5@foodgo.com",
+                    "Biryani Junction",
+                    "Specialized biryani restaurant",
+                    "Biryani",
+
+                    // IMPORTANT:
+                    // Complete working restaurant image URL
+                    "https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=1000&q=80",
+
+                    "Palakonda Road",
+                    "Srikakulam",
+                    18.3050,
+                    83.9050,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Hyderabadi Chicken Biryani",
+                                    "Fragrant basmati rice and tender chicken",
+                                    240,
+                                    "https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Mutton Biryani",
+                                    "Rich and flavorful mutton biryani",
+                                    290,
+                                    "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Egg Biryani",
+                                    "Basmati rice cooked with boiled eggs",
+                                    170,
+                                    "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Veg Biryani",
+                                    "Aromatic rice with fresh vegetables",
+                                    160,
+                                    "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken 65",
+                                    "Crispy spicy chicken starter",
+                                    190,
+                                    "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Chicken Tikka Biryani",
+                                    "Biryani with juicy grilled chicken tikka",
+                                    260,
+                                    "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Paneer Biryani",
+                                    "Fragrant basmati rice with spiced paneer",
+                                    190,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 6. COASTAL KITCHEN
+            // ============================================================
+
+            createRestaurant(
+                    "owner6@foodgo.com",
+                    "Coastal Kitchen",
+                    "Fresh seafood and coastal Indian cuisine",
+                    "Seafood",
+                    "https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=1000&q=80",
+                    "Beach Road",
+                    "Srikakulam",
+                    18.3100,
+                    83.9100,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Fish Fry",
+                                    "Crispy fried fish with coastal spices",
+                                    220,
+                                    "https://images.unsplash.com/photo-1544943910-4c1dc44aab44?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Prawn Curry",
+                                    "Fresh prawns in spicy coconut gravy",
+                                    260,
+                                    "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Fish Curry",
+                                    "Traditional spicy fish curry",
+                                    230,
+                                    "https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Prawn Fry",
+                                    "Crispy spicy prawns",
+                                    280,
+                                    "https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Lemon Rice",
+                                    "Fresh lemon flavored rice",
+                                    80,
+                                    "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 7. PIZZA CORNER
+            // ============================================================
+
+            createRestaurant(
+                    "owner7@foodgo.com",
+                    "Pizza Corner",
+                    "Freshly baked pizzas and Italian snacks",
+                    "Italian",
+                    "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80",
+                    "Main Bazaar",
+                    "Srikakulam",
+                    18.2950,
+                    83.8850,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Margherita Pizza",
+                                    "Classic tomato, mozzarella and basil pizza",
+                                    199,
+                                    "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Farmhouse Pizza",
+                                    "Pizza loaded with fresh vegetables",
+                                    249,
+                                    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Pizza",
+                                    "Pizza topped with spicy chicken",
+                                    279,
+                                    "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Garlic Bread",
+                                    "Fresh baked garlic bread",
+                                    99,
+                                    "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Cheese Burst Pizza",
+                                    "Extra cheesy pizza with rich crust",
+                                    299,
+                                    "https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Creamy Alfredo Pasta",
+                                    "Italian pasta in creamy white sauce",
+                                    220,
+                                    "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Lasagna",
+                                    "Layered pasta with cheese and tomato sauce",
+                                    260,
+                                    "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 8. BURGER HUB
+            // ============================================================
+
+            createRestaurant(
+                    "owner8@foodgo.com",
+                    "Burger Hub",
+                    "Juicy burgers, fries and quick bites",
+                    "Fast Food",
+                    "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1000&q=80",
+                    "Station Road",
+                    "Srikakulam",
+                    18.2920,
+                    83.8990,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Classic Chicken Burger",
+                                    "Juicy chicken patty with fresh vegetables",
+                                    159,
+                                    "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Veg Burger",
+                                    "Crispy vegetable patty burger",
+                                    129,
+                                    "https://images.unsplash.com/photo-1520072959219-c595dc870360?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Cheese Burger",
+                                    "Classic burger with melted cheese",
+                                    179,
+                                    "https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "French Fries",
+                                    "Crispy golden potato fries",
+                                    99,
+                                    "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Nuggets",
+                                    "Crispy bite sized chicken nuggets",
+                                    149,
+                                    "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Veg Wrap",
+                                    "Fresh vegetables wrapped in soft bread",
+                                    119,
+                                    "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Hot Dog",
+                                    "Classic hot dog with fresh toppings",
+                                    149,
+                                    "https://images.unsplash.com/photo-1612392062631-94dd858cba88?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 9. HEALTHY BOWL
+            // ============================================================
+
+            createRestaurant(
+                    "owner9@foodgo.com",
+                    "Healthy Bowl",
+                    "Healthy salads, bowls and nutritious meals",
+                    "Healthy",
+                    "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1000&q=80",
+                    "Green Park Road",
+                    "Srikakulam",
+                    18.2880,
+                    83.8920,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Veggie Salad",
+                                    "Fresh seasonal vegetables with dressing",
+                                    140,
+                                    "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Salad",
+                                    "Grilled chicken with fresh vegetables",
+                                    190,
+                                    "https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Fruit Bowl",
+                                    "Fresh mixed seasonal fruits",
+                                    130,
+                                    "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Paneer Bowl",
+                                    "Protein rich paneer and vegetable bowl",
+                                    180,
+                                    "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Sprout Salad",
+                                    "Fresh sprouts with vegetables",
+                                    110,
+                                    "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 10. WOK & ROLL
+            // ============================================================
+
+            createRestaurant(
+                    "owner10@foodgo.com",
+                    "Wok & Roll",
+                    "Chinese noodles, rice and Indo-Chinese dishes",
+                    "Chinese",
+                    "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1000&q=80",
+                    "Seven Roads Junction",
+                    "Srikakulam",
+                    18.2990,
+                    83.9020,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Veg Hakka Noodles",
+                                    "Stir fried noodles with vegetables",
+                                    140,
+                                    "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Noodles",
+                                    "Stir fried noodles with chicken",
+                                    170,
+                                    "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Veg Fried Rice",
+                                    "Chinese style vegetable fried rice",
+                                    130,
+                                    "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Fried Rice",
+                                    "Fried rice with spicy chicken",
+                                    170,
+                                    "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Gobi Manchurian",
+                                    "Crispy cauliflower in Manchurian sauce",
+                                    150,
+                                    "https://images.unsplash.com/photo-1625398407796-82650a8c1352?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Spring Rolls",
+                                    "Crispy vegetable spring rolls",
+                                    120,
+                                    "https://images.unsplash.com/photo-1548507200-2e5c7f2a2c5a?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chilli Paneer",
+                                    "Crispy paneer tossed in spicy Chinese sauce",
+                                    180,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 11. CAFE COFFEE DAYLIGHT
+            // ============================================================
+
+            createRestaurant(
+                    "owner11@foodgo.com",
+                    "Cafe Coffee Daylight",
+                    "Coffee, snacks, sandwiches and desserts",
+                    "Cafe",
+                    "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1000&q=80",
+                    "College Road",
+                    "Srikakulam",
+                    18.2870,
+                    83.8980,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Cappuccino",
+                                    "Rich espresso with steamed milk foam",
+                                    110,
+                                    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Cold Coffee",
+                                    "Chilled creamy coffee",
+                                    130,
+                                    "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Veg Sandwich",
+                                    "Fresh vegetable grilled sandwich",
+                                    120,
+                                    "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chocolate Cake",
+                                    "Rich chocolate cake slice",
+                                    140,
+                                    "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "French Toast",
+                                    "Golden toast with sweet toppings",
+                                    130,
+                                    "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 12. ROYAL MUGHLAI
+            // ============================================================
+
+            createRestaurant(
+                    "owner12@foodgo.com",
+                    "Royal Mughlai",
+                    "Royal Mughlai dishes and kebabs",
+                    "Mughlai",
+                    "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1000&q=80",
+                    "Maharaja Road",
+                    "Srikakulam",
+                    18.3040,
+                    83.8880,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Mutton Korma",
+                                    "Slow cooked mutton in rich gravy",
+                                    280,
+                                    "https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Chicken Korma",
+                                    "Creamy Mughlai chicken curry",
+                                    240,
+                                    "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Seekh Kebab",
+                                    "Grilled minced meat kebabs",
+                                    230,
+                                    "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Paneer Tikka",
+                                    "Grilled marinated paneer",
+                                    190,
+                                    "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Shahi Paneer",
+                                    "Paneer in rich royal gravy",
+                                    190,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 13. DOSA POINT
+            // ============================================================
+
+            createRestaurant(
+                    "owner13@foodgo.com",
+                    "Dosa Point",
+                    "Variety of crispy dosas and South Indian food",
+                    "South Indian",
+                    "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=1000&q=80",
+                    "Municipal Road",
+                    "Srikakulam",
+                    18.2930,
+                    83.9100,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Mysore Masala Dosa",
+                                    "Spicy Mysore dosa with potato filling",
+                                    110,
+                                    "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Cheese Dosa",
+                                    "Crispy dosa with melted cheese",
+                                    130,
+                                    "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Paneer Dosa",
+                                    "Dosa filled with spicy paneer",
+                                    140,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Onion Dosa",
+                                    "Crispy dosa topped with onions",
+                                    100,
+                                    "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Rava Dosa",
+                                    "Thin crispy semolina dosa",
+                                    100,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 14. PUNJABI TADKA
+            // ============================================================
+
+            createRestaurant(
+                    "owner14@foodgo.com",
+                    "Punjabi Tadka",
+                    "Authentic Punjabi food and North Indian meals",
+                    "Punjabi",
+                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1000&q=80",
+                    "New Bridge Road",
+                    "Srikakulam",
+                    18.3000,
+                    83.8950,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Chole Bhature",
+                                    "Spicy chickpeas with fluffy bhature",
+                                    150,
+                                    "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Rajma Chawal",
+                                    "Rajma curry served with rice",
+                                    140,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Paneer Tikka",
+                                    "Char grilled marinated paneer",
+                                    190,
+                                    "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Aloo Paratha",
+                                    "Stuffed Punjabi potato flatbread",
+                                    100,
+                                    "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Dal Tadka",
+                                    "Yellow dal tempered with spices",
+                                    130,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 15. THE DESSERT HOUSE
+            // ============================================================
+
+            createRestaurant(
+                    "owner15@foodgo.com",
+                    "The Dessert House",
+                    "Cakes, ice creams and sweet treats",
+                    "Desserts",
+                    "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=1000&q=80",
+                    "Market Street",
+                    "Srikakulam",
+                    18.2960,
+                    83.8840,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Chocolate Cake",
+                                    "Rich chocolate cake with cream",
+                                    160,
+                                    "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Red Velvet Cake",
+                                    "Soft red velvet cake with cream cheese",
+                                    180,
+                                    "https://images.unsplash.com/photo-1586788680434-30d324b2d46f?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chocolate Brownie",
+                                    "Warm chocolate brownie",
+                                    120,
+                                    "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Vanilla Ice Cream",
+                                    "Classic creamy vanilla ice cream",
+                                    90,
+                                    "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Strawberry Sundae",
+                                    "Ice cream with strawberry topping",
+                                    140,
+                                    "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Cheesecake",
+                                    "Creamy cheesecake with sweet topping",
+                                    180,
+                                    "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Donut",
+                                    "Soft glazed sweet donut",
+                                    90,
+                                    "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 16. MOMOS & MORE
+            // ============================================================
+
+            createRestaurant(
+                    "owner16@foodgo.com",
+                    "Momos & More",
+                    "Steamed momos and Asian street food",
+                    "Asian",
+                    "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=1000&q=80",
+                    "Bus Stand Road",
+                    "Srikakulam",
+                    18.3020,
+                    83.9100,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Veg Momos",
+                                    "Steamed dumplings filled with vegetables",
+                                    100,
+                                    "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Momos",
+                                    "Steamed dumplings with chicken filling",
+                                    130,
+                                    "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Fried Momos",
+                                    "Crispy fried vegetable dumplings",
+                                    120,
+                                    "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chilli Momos",
+                                    "Spicy momos tossed with chilli sauce",
+                                    140,
+                                    "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Spring Rolls",
+                                    "Crispy vegetable spring rolls",
+                                    110,
+                                    "https://images.unsplash.com/photo-1548507200-2e5c7f2a2c5a?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 17. ANDHRA SPICE BOX
+            // ============================================================
+
+            createRestaurant(
+                    "owner17@foodgo.com",
+                    "Andhra Spice Box",
+                    "Spicy Andhra meals and local specialties",
+                    "Andhra",
+                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1000&q=80",
+                    "Rural Development Road",
+                    "Srikakulam",
+                    18.2860,
+                    83.9040,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Andhra Meals",
+                                    "Complete traditional Andhra meal",
+                                    180,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Fry",
+                                    "Spicy Andhra chicken fry",
+                                    210,
+                                    "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Mutton Fry",
+                                    "Spicy fried mutton pieces",
+                                    280,
+                                    "https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Tomato Pappu",
+                                    "Traditional tomato dal",
+                                    100,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Rasam Rice",
+                                    "Spicy rasam with steamed rice",
+                                    80,
+                                    "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 18. GRILL NATION
+            // ============================================================
+
+            createRestaurant(
+                    "owner18@foodgo.com",
+                    "Grill Nation",
+                    "Grilled chicken, kebabs and barbecue",
+                    "Grill",
+                    "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80",
+                    "Industrial Estate Road",
+                    "Srikakulam",
+                    18.3090,
+                    83.8990,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Grilled Chicken",
+                                    "Juicy grilled chicken with herbs",
+                                    260,
+                                    "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Chicken Seekh Kebab",
+                                    "Spiced minced chicken kebab",
+                                    230,
+                                    "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Tandoori Wings",
+                                    "Smoky grilled chicken wings",
+                                    220,
+                                    "https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Grilled Paneer",
+                                    "Char grilled paneer with spices",
+                                    200,
+                                    "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "BBQ Chicken",
+                                    "Barbecue glazed chicken",
+                                    270,
+                                    "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 19. VEGGIE PARADISE
+            // ============================================================
+
+            createRestaurant(
+                    "owner19@foodgo.com",
+                    "Veggie Paradise",
+                    "Pure vegetarian meals and snacks",
+                    "Vegetarian",
+                    "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=80",
+                    "Temple Road",
+                    "Srikakulam",
+                    18.2980,
+                    83.8820,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Veg Thali",
+                                    "Complete vegetarian Indian meal",
+                                    180,
+                                    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Paneer Fried Rice",
+                                    "Fried rice with paneer and vegetables",
+                                    170,
+                                    "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Veg Manchurian",
+                                    "Crispy vegetables in Manchurian sauce",
+                                    150,
+                                    "https://images.unsplash.com/photo-1625398407796-82650a8c1352?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Palak Paneer",
+                                    "Paneer cooked in spinach gravy",
+                                    180,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Jeera Rice",
+                                    "Basmati rice flavored with cumin",
+                                    100,
+                                    "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 20. FOODGO SPECIAL
+            // ============================================================
+
+            createRestaurant(
+                    "owner20@foodgo.com",
+                    "FoodGo Special",
+                    "Multi-cuisine restaurant with popular favorites",
+                    "Multi-Cuisine",
+                    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80",
+                    "FoodGo Central",
+                    "Srikakulam",
+                    18.2910,
+                    83.9060,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            food(
+                                    "Special Chicken Biryani",
+                                    "FoodGo signature chicken biryani",
+                                    250,
+                                    "https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Paneer Butter Masala",
+                                    "Creamy paneer curry",
+                                    180,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Fried Rice",
+                                    "Indo-Chinese chicken fried rice",
+                                    180,
+                                    "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Veg Pizza",
+                                    "Fresh vegetable loaded pizza",
+                                    220,
+                                    "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Brownie",
+                                    "Warm chocolate brownie dessert",
+                                    120,
+                                    "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // 21. FOODGO STREET KITCHEN
+            // MANY DIFFERENT FOOD ITEMS
+            // ============================================================
+
+            createRestaurant(
+                    "owner21@foodgo.com",
+                    "FoodGo Street Kitchen",
+                    "Popular Indian, Chinese, Italian and fast food street favorites",
+                    "Multi-Cuisine",
+
+                    "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1000&q=80",
+
+                    "Market Road",
+                    "Srikakulam",
+                    18.2995,
+                    83.8975,
+                    password,
+                    userRepository,
+                    restaurantRepository,
+                    foodItemRepository,
+                    new FoodData[]{
+
+                            // ==================================================
+                            // INDIAN STREET FOOD
+                            // ==================================================
+
+                            food(
+                                    "Pani Puri",
+                                    "Crispy puris filled with spicy flavored water, potato and chutney",
+                                    60,
+                                    "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Samosa",
+                                    "Crispy pastry filled with spicy potato and peas",
+                                    50,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Pav Bhaji",
+                                    "Buttery toasted pav served with spicy mixed vegetable bhaji",
+                                    120,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Bhel Puri",
+                                    "Crispy puffed rice mixed with vegetables, chutneys and spices",
+                                    70,
+                                    "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Aloo Tikki",
+                                    "Crispy potato patties served with chutneys and spices",
+                                    80,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Dahi Puri",
+                                    "Crispy puris filled with yogurt, chutneys and spices",
+                                    80,
+                                    "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Vada Pav",
+                                    "Mumbai style spicy potato fritter served in a bun",
+                                    60,
+                                    "https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+
+                            // ==================================================
+                            // RICE ITEMS
+                            // ==================================================
+
+                            food(
+                                    "Veg Fried Rice",
+                                    "Wok tossed rice with fresh vegetables and aromatic spices",
+                                    130,
+                                    "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Fried Rice",
+                                    "Wok fried rice with chicken, vegetables and Chinese spices",
+                                    170,
+                                    "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Schezwan Fried Rice",
+                                    "Spicy fried rice tossed with Schezwan sauce and vegetables",
+                                    150,
+                                    "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Egg Fried Rice",
+                                    "Fried rice prepared with scrambled eggs and vegetables",
+                                    150,
+                                    "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Paneer Fried Rice",
+                                    "Aromatic fried rice with paneer and fresh vegetables",
+                                    160,
+                                    "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+
+                            // ==================================================
+                            // NOODLES
+                            // ==================================================
+
+                            food(
+                                    "Veg Hakka Noodles",
+                                    "Stir fried noodles with vegetables and Chinese sauces",
+                                    140,
+                                    "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Hakka Noodles",
+                                    "Stir fried noodles with tender chicken and vegetables",
+                                    180,
+                                    "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Schezwan Noodles",
+                                    "Spicy noodles tossed with Schezwan sauce and vegetables",
+                                    150,
+                                    "https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+
+                            // ==================================================
+                            // SOUPS
+                            // ==================================================
+
+                            food(
+                                    "Hot and Sour Soup",
+                                    "Spicy and tangy Chinese soup with vegetables",
+                                    100,
+                                    "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Sweet Corn Soup",
+                                    "Creamy sweet corn soup with fresh vegetables",
+                                    100,
+                                    "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Manchow Soup",
+                                    "Spicy chicken soup topped with crispy noodles",
+                                    130,
+                                    "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Tomato Soup",
+                                    "Warm and creamy tomato soup with herbs",
+                                    90,
+                                    "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+
+                            // ==================================================
+                            // CHINESE STARTERS
+                            // ==================================================
+
+                            food(
+                                    "Gobi Manchurian",
+                                    "Crispy cauliflower tossed in spicy Manchurian sauce",
+                                    150,
+                                    "https://images.unsplash.com/photo-1625398407796-82650a8c1352?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chilli Paneer",
+                                    "Crispy paneer tossed with peppers, onions and chilli sauce",
+                                    180,
+                                    "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chilli Chicken",
+                                    "Crispy chicken tossed with peppers and spicy sauce",
+                                    210,
+                                    "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Spring Rolls",
+                                    "Crispy rolls filled with seasoned vegetables",
+                                    110,
+                                    "https://images.unsplash.com/photo-1548507200-2e5c7f2a2c5a?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+
+                            // ==================================================
+                            // ITALIAN
+                            // ==================================================
+
+                            food(
+                                    "Penne Arrabbiata",
+                                    "Penne pasta cooked in spicy tomato and garlic sauce",
+                                    190,
+                                    "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "White Sauce Pasta",
+                                    "Creamy pasta prepared with vegetables and white sauce",
+                                    200,
+                                    "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Red Sauce Pasta",
+                                    "Italian pasta cooked in rich tomato sauce",
+                                    190,
+                                    "https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Cheese Garlic Bread",
+                                    "Freshly baked garlic bread topped with melted cheese",
+                                    130,
+                                    "https://images.unsplash.com/photo-1573140401552-3fab0b24306f?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+
+                            // ==================================================
+                            // FAST FOOD
+                            // ==================================================
+
+                            food(
+                                    "Chicken Wrap",
+                                    "Soft wrap filled with grilled chicken and fresh vegetables",
+                                    160,
+                                    "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Veg Wrap",
+                                    "Fresh vegetables and sauces wrapped in soft flatbread",
+                                    130,
+                                    "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Shawarma",
+                                    "Juicy chicken with vegetables and creamy garlic sauce",
+                                    180,
+                                    "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Cheese Sandwich",
+                                    "Grilled sandwich loaded with melted cheese",
+                                    120,
+                                    "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chicken Sandwich",
+                                    "Grilled chicken sandwich with lettuce and creamy sauce",
+                                    160,
+                                    "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+
+                            // ==================================================
+                            // BURGERS
+                            // ==================================================
+
+                            food(
+                                    "Crispy Chicken Burger",
+                                    "Crispy chicken patty with lettuce, cheese and sauce",
+                                    179,
+                                    "https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=800&q=80",
+                                    false
+                            ),
+
+                            food(
+                                    "Veg Cheese Burger",
+                                    "Vegetable patty burger topped with melted cheese",
+                                    149,
+                                    "https://images.unsplash.com/photo-1520072959219-c595dc870360?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+
+                            // ==================================================
+                            // SIDES
+                            // ==================================================
+
+                            food(
+                                    "Peri Peri Fries",
+                                    "Crispy fries coated with spicy peri peri seasoning",
+                                    120,
+                                    "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Cheese Fries",
+                                    "Golden fries topped with creamy melted cheese",
+                                    140,
+                                    "https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Onion Rings",
+                                    "Crispy golden onion rings served with dipping sauce",
+                                    110,
+                                    "https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+
+                            // ==================================================
+                            // DESSERTS
+                            // ==================================================
+
+                            food(
+                                    "Chocolate Brownie",
+                                    "Warm chocolate brownie with rich chocolate flavor",
+                                    120,
+                                    "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Chocolate Lava Cake",
+                                    "Warm chocolate cake with a molten chocolate center",
+                                    160,
+                                    "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Gulab Jamun",
+                                    "Soft milk dumplings soaked in sweet sugar syrup",
+                                    80,
+                                    "https://images.unsplash.com/photo-1601303516534-7d5a4d8b7b5d?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Rasmalai",
+                                    "Soft cottage cheese dumplings soaked in sweet saffron milk",
+                                    110,
+                                    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Mango Ice Cream",
+                                    "Creamy mango flavored ice cream",
+                                    100,
+                                    "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            ),
+
+                            food(
+                                    "Brownie Sundae",
+                                    "Warm brownie served with creamy ice cream and chocolate sauce",
+                                    170,
+                                    "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=800&q=80",
+                                    true
+                            )
+                    }
+            );
+
+
+            // ============================================================
+            // SUCCESS MESSAGE
+            // ============================================================
+
+            System.out.println();
+            System.out.println("============================================================");
+            System.out.println("          FOODGO DATA SEEDER COMPLETED");
+            System.out.println("============================================================");
+            System.out.println("20+ restaurants created/updated");
+            System.out.println("Different food categories added");
+            System.out.println("Pani Puri added");
+            System.out.println("Fried Rice added");
+            System.out.println("Soups added");
+            System.out.println("Noodles added");
+            System.out.println("Momos added");
+            System.out.println("Pasta added");
+            System.out.println("Burgers added");
+            System.out.println("Sandwiches added");
+            System.out.println("Desserts added");
+            System.out.println("Biryani Junction image updated");
+            System.out.println("Missing food items automatically added");
+            System.out.println("Owner password: FoodGo123");
+            System.out.println("============================================================");
+            System.out.println();
+        };
+    }
+
+
+    // ================================================================
+    // CREATE / UPDATE RESTAURANT + OWNER + FOOD ITEMS
+    // ================================================================
+
+    private void createRestaurant(
+            String email,
+            String restaurantName,
+            String description,
+            String cuisineType,
+            String imageUrl,
+            String address,
+            String city,
+            Double latitude,
+            Double longitude,
+            String password,
+            UserRepository userRepository,
+            RestaurantRepository restaurantRepository,
+            FoodItemRepository foodItemRepository,
+            FoodData[] foods) {
+
+
+        // ============================================================
+        // CREATE OWNER
+        // ============================================================
+
+        User owner = userRepository
+                .findByEmail(email)
+                .orElseGet(() -> {
+
+                    User user = new User();
+
+                    user.setFullName(restaurantName + " Owner");
+                    user.setEmail(email);
+                    user.setPassword(password);
+                    user.setPhoneNumber("9000000000");
+                    user.setRole(Role.ROLE_RESTAURANT_OWNER);
+                    user.setEnabled(true);
+
+                    return userRepository.save(user);
+                });
+
+
+        // ============================================================
+        // CREATE OR FIND RESTAURANT
+        // ============================================================
+
+        Restaurant restaurant = restaurantRepository
+                .findByOwner(owner)
+                .orElseGet(() -> {
+
+                    Restaurant r = new Restaurant();
+
+                    r.setOwner(owner);
+
+                    return r;
+                });
+
+
+        // ============================================================
+        // ALWAYS UPDATE RESTAURANT DETAILS
+        // ============================================================
+
+        restaurant.setName(restaurantName);
+        restaurant.setDescription(description);
+        restaurant.setCuisineType(cuisineType);
+
+        // This updates the restaurant image even if restaurant
+        // already exists in MongoDB.
+        restaurant.setImageUrl(imageUrl);
+
+        restaurant.setAddress(address);
+        restaurant.setCity(city);
+        restaurant.setLatitude(latitude);
+        restaurant.setLongitude(longitude);
+
+        restaurant.setAverageRating(
+                BigDecimal.valueOf(4.5)
+        );
+
+        restaurant.setTotalReviews(25);
+
+        restaurant.setDeliveryFee(
+                BigDecimal.valueOf(40)
+        );
+
+        restaurant.setEstimatedDeliveryMinutes(35);
+
+        restaurant.setStatus(
+                RestaurantStatus.APPROVED
+        );
+
+        restaurant.setOpen(true);
+
+        restaurant = restaurantRepository.save(restaurant);
+
+
+        // ============================================================
+        // GET EXISTING FOOD ITEMS
+        // ============================================================
+
+        Set<String> existingFoodNames = new HashSet<>();
+
+        foodItemRepository
+                .findByRestaurant(restaurant)
+                .forEach(item ->
+                        existingFoodNames.add(
+                                item.getName()
+                                        .trim()
+                                        .toLowerCase()
+                        )
+                );
+
+
+        // ============================================================
+        // ADD ONLY NEW FOOD ITEMS
+        // ============================================================
+
+        for (FoodData data : foods) {
+
+            String foodName =
+                    data.name.trim().toLowerCase();
+
+            if (!existingFoodNames.contains(foodName)) {
+
+                FoodItem item = new FoodItem();
+
+                item.setRestaurant(restaurant);
+
+                item.setName(data.name);
+
+                item.setDescription(data.description);
+
+                item.setPrice(
+                        BigDecimal.valueOf(data.price)
+                );
+
+                item.setImageUrl(data.imageUrl);
+
+                item.setVegetarian(data.vegetarian);
+
+                item.setAvailable(true);
+
+                item.setAverageRating(
+                        BigDecimal.valueOf(4.5)
+                );
+
+                item.setTotalReviews(10);
+
+                foodItemRepository.save(item);
+
+                existingFoodNames.add(foodName);
+
+                System.out.println(
+                        "Added food: "
+                                + data.name
+                                + " -> "
+                                + restaurantName
+                );
+            }
+        }
+
+
+        System.out.println(
+                "Updated restaurant: "
+                        + restaurantName
+        );
+    }
+
+
+    // ================================================================
+    // FOOD DATA HELPER
+    // ================================================================
+
+    private static FoodData food(
+            String name,
+            String description,
+            double price,
+            String imageUrl,
+            boolean vegetarian) {
+
+        return new FoodData(
+                name,
+                description,
+                price,
+                imageUrl,
+                vegetarian
+        );
+    }
+
+
+    // ================================================================
+    // FOOD DATA CLASS
+    // ================================================================
+
+    private static class FoodData {
+
+        String name;
+
+        String description;
+
+        double price;
+
+        String imageUrl;
+
+        boolean vegetarian;
+
+
+        FoodData(
+                String name,
+                String description,
+                double price,
+                String imageUrl,
+                boolean vegetarian) {
+
+            this.name = name;
+
+            this.description = description;
+
+            this.price = price;
+
+            this.imageUrl = imageUrl;
+
+            this.vegetarian = vegetarian;
+        }
+    }
+}

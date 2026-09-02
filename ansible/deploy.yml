@@ -1,0 +1,133 @@
+---
+# FoodGo Kubernetes deployment playbook
+#
+# Usage (typically invoked from the Jenkinsfile "Ansible Deployment" stage):
+#
+#   ansible-playbook -i inventory deploy.yml \
+#     -e image_tag=${BUILD_NUMBER} \
+#     -e ecr_registry=123456789012.dkr.ecr.ap-south-1.amazonaws.com \
+#     -e aws_region=ap-south-1 \
+#     -e eks_cluster_name=foodgo-cluster
+#
+# Required tools on the control node: kubectl, aws-cli, ansible.
+# AWS credentials must already be available to the shell (Jenkins credentials
+# binding, an instance profile, or an assumed role) — never hard-code them here.
+
+- name: Deploy FoodGo to Amazon EKS
+  hosts: eks_control
+  gather_facts: false
+
+  vars:
+    k8s_manifest_dir: "{{ playbook_dir }}/../k8s"
+    namespace: foodgo
+    backend_deployment: foodgo-backend
+    frontend_deployment: foodgo-frontend
+    rollout_timeout: 180s
+
+  tasks:
+    - name: Verify kubectl is installed
+      command: kubectl version --client=true --output=yaml
+      register: kubectl_check
+      changed_when: false
+
+    - name: Verify AWS CLI is installed
+      command: aws --version
+      register: aws_cli_check
+      changed_when: false
+
+    - name: Update kubeconfig for the target EKS cluster
+      command: >
+        aws eks update-kubeconfig
+        --name {{ eks_cluster_name }}
+        --region {{ aws_region }}
+      changed_when: true
+
+    - name: Verify connectivity to the EKS API server
+      command: kubectl cluster-info
+      register: cluster_info
+      changed_when: false
+
+    - name: Fail early if the cluster is unreachable
+      fail:
+        msg: "Unable to reach the EKS cluster '{{ eks_cluster_name }}' in region '{{ aws_region }}'."
+      when: cluster_info.rc != 0
+
+    - name: Apply the namespace manifest
+      command: kubectl apply -f {{ k8s_manifest_dir }}/namespace.yaml
+      changed_when: true
+
+    - name: Apply ConfigMap and Secret
+      command: kubectl apply -f {{ item }}
+      loop:
+        - "{{ k8s_manifest_dir }}/configmap.yaml"
+        - "{{ k8s_manifest_dir }}/secret.yaml"
+      changed_when: true
+
+    - name: Render backend deployment manifest with the built image tag
+      replace:
+        path: "{{ k8s_manifest_dir }}/backend-deployment.yaml"
+        regexp: 'image: .*foodgo-backend:.*'
+        replace: "image: {{ ecr_registry }}/foodgo-backend:{{ image_tag }}"
+
+    - name: Render frontend deployment manifest with the built image tag
+      replace:
+        path: "{{ k8s_manifest_dir }}/frontend-deployment.yaml"
+        regexp: 'image: .*foodgo-frontend:.*'
+        replace: "image: {{ ecr_registry }}/foodgo-frontend:{{ image_tag }}"
+
+    - name: Apply backend Deployment and Service
+      command: kubectl apply -f {{ item }}
+      loop:
+        - "{{ k8s_manifest_dir }}/backend-deployment.yaml"
+        - "{{ k8s_manifest_dir }}/backend-service.yaml"
+      changed_when: true
+
+    - name: Apply frontend Deployment and Service
+      command: kubectl apply -f {{ item }}
+      loop:
+        - "{{ k8s_manifest_dir }}/frontend-deployment.yaml"
+        - "{{ k8s_manifest_dir }}/frontend-service.yaml"
+      changed_when: true
+
+    - name: Wait for the backend rollout to complete
+      command: >
+        kubectl rollout status deployment/{{ backend_deployment }}
+        -n {{ namespace }} --timeout={{ rollout_timeout }}
+      register: backend_rollout
+      changed_when: false
+
+    - name: Wait for the frontend rollout to complete
+      command: >
+        kubectl rollout status deployment/{{ frontend_deployment }}
+        -n {{ namespace }} --timeout={{ rollout_timeout }}
+      register: frontend_rollout
+      changed_when: false
+
+    - name: Verify backend pods are running
+      command: kubectl get pods -n {{ namespace }} -l app={{ backend_deployment }} -o wide
+      register: backend_pods
+      changed_when: false
+
+    - name: Verify frontend pods are running
+      command: kubectl get pods -n {{ namespace }} -l app={{ frontend_deployment }} -o wide
+      register: frontend_pods
+      changed_when: false
+
+    - name: Verify services are present
+      command: kubectl get svc -n {{ namespace }}
+      register: services_output
+      changed_when: false
+
+    - name: Print deployment summary
+      debug:
+        msg:
+          - "Backend rollout: {{ 'SUCCESS' if backend_rollout.rc == 0 else 'FAILED' }}"
+          - "Frontend rollout: {{ 'SUCCESS' if frontend_rollout.rc == 0 else 'FAILED' }}"
+          - "{{ backend_pods.stdout_lines }}"
+          - "{{ frontend_pods.stdout_lines }}"
+          - "{{ services_output.stdout_lines }}"
+
+    - name: Fail the play if either rollout did not succeed
+      fail:
+        msg: "FoodGo deployment failed — check the rollout status output above."
+      when: backend_rollout.rc != 0 or frontend_rollout.rc != 0
