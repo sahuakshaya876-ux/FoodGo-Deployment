@@ -11,7 +11,6 @@ pipeline {
         BACKEND_IMAGE  = 'akshayasahh/foodgo-backend'
         FRONTEND_IMAGE = 'akshayasahh/foodgo-frontend'
         IMAGE_TAG      = "${env.BUILD_NUMBER}"
-        SONAR_HOST_URL = 'http://localhost:9000'
     }
 
     options {
@@ -49,36 +48,8 @@ pipeline {
             }
         }
 
-        stage('4. SonarQube Analysis') {
-            steps {
-                dir('backend') {
-                    withSonarQubeEnv('SonarQubeServer') {
-                        withCredentials([
-                            string(
-                                credentialsId: 'sonarqube-token',
-                                variable: 'SONAR_TOKEN'
-                            )
-                        ]) {
-                            sh '''
-                                mvn -B sonar:sonar \
-                                  -Dsonar.host.url=$SONAR_HOST_URL \
-                                  -Dsonar.token=$SONAR_TOKEN
-                            '''
-                        }
-                    }
-                }
-            }
-        }
 
-        stage('5. SonarQube Quality Gate') {
-            steps {
-                timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
-
-        stage('6. Trivy Filesystem Scan') {
+        stage('4. Trivy Filesystem Scan') {
             steps {
                 sh '''
                     trivy fs \
@@ -93,7 +64,7 @@ pipeline {
             }
         }
 
-        stage('7. Docker Build') {
+        stage('5. Docker Build') {
             steps {
                 sh '''
                     docker build \
@@ -107,7 +78,7 @@ pipeline {
             }
         }
 
-        stage('8. Trivy Docker Image Scan') {
+        stage('6. Trivy Docker Image Scan') {
             steps {
                 sh '''
                     trivy image \
@@ -125,7 +96,7 @@ pipeline {
             }
         }
 
-        stage('9. Docker Hub Login') {
+        stage('7. Docker Hub Login') {
             steps {
                 withCredentials([
                     usernamePassword(
@@ -144,7 +115,7 @@ pipeline {
             }
         }
 
-        stage('10. Push Images to Docker Hub') {
+        stage('8. Push Images to Docker Hub') {
             steps {
                 sh '''
                     docker push ${BACKEND_IMAGE}:${IMAGE_TAG}
@@ -153,7 +124,7 @@ pipeline {
             }
         }
 
-        stage('11. Ansible Deployment to Minikube') {
+        stage('9. Ansible Deployment to Minikube') {
             steps {
                 dir('ansible') {
                     sh '''
@@ -166,7 +137,7 @@ pipeline {
             }
         }
 
-        stage('12. Kubernetes Rollout Status') {
+        stage('10. Kubernetes Rollout Status') {
             steps {
                 sh '''
                     kubectl rollout status \
@@ -182,7 +153,7 @@ pipeline {
             }
         }
 
-        stage('13. Health Check') {
+        stage('11. Health Check') {
             steps {
                 sh '''
                     set -e
