@@ -1,6 +1,0 @@
-com/foodgo/auth/AuthServiceImplTest.class
-com/foodgo/restaurant/RestaurantServiceImplTest.class
-com/foodgo/order/OrderServiceImplTest.class
-com/foodgo/food/FoodItemServiceImplTest.class
-com/foodgo/cart/CartServiceImplTest.class
-com/foodgo/FoodGoApplicationTests.class
