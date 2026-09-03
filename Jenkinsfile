@@ -161,7 +161,10 @@ pipeline {
                     BACKEND_POD=$(kubectl get pods \
                       -n foodgo \
                       -l app=foodgo-backend \
+                      --field-selector=status.phase=Running \
                       -o jsonpath="{.items[0].metadata.name}")
+
+                    echo "Checking backend pod: $BACKEND_POD"
 
                     kubectl exec \
                       -n foodgo \
@@ -174,7 +177,6 @@ pipeline {
                 '''
             }
         }
-    }
 
     post {
         success {
