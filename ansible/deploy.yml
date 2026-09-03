@@ -85,6 +85,10 @@
       command: kubectl apply -f {{ k8s_manifest_dir }}/frontend-service.yaml
       changed_when: true
 
+    - name: Apply FoodGo Ingress
+      command: kubectl apply -f {{ k8s_manifest_dir }}/ingress.yaml
+      changed_when: true
+
     - name: Wait for PostgreSQL rollout
       command: >
         kubectl rollout status deployment/foodgo-postgres
