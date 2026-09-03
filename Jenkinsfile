@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -48,7 +49,6 @@ pipeline {
             }
         }
 
-
         stage('4. Trivy Filesystem Scan') {
             steps {
                 sh '''
@@ -79,22 +79,22 @@ pipeline {
         }
 
         stage('6. Trivy Docker Image Scan') {
-    steps {
-        sh '''
-            TMPDIR=/var/lib/jenkins/trivy-tmp trivy image \
-              --exit-code 1 \
-              --severity HIGH,CRITICAL \
-              --no-progress \
-              ${BACKEND_IMAGE}:${IMAGE_TAG}
+            steps {
+                sh '''
+                    TMPDIR=/var/lib/jenkins/trivy-tmp trivy image \
+                      --exit-code 1 \
+                      --severity HIGH,CRITICAL \
+                      --no-progress \
+                      ${BACKEND_IMAGE}:${IMAGE_TAG}
 
-            TMPDIR=/var/lib/jenkins/trivy-tmp trivy image \
-              --exit-code 1 \
-              --severity HIGH,CRITICAL \
-              --no-progress \
-              ${FRONTEND_IMAGE}:${IMAGE_TAG}
-        '''
-    }
-}
+                    TMPDIR=/var/lib/jenkins/trivy-tmp trivy image \
+                      --exit-code 1 \
+                      --severity HIGH,CRITICAL \
+                      --no-progress \
+                      ${FRONTEND_IMAGE}:${IMAGE_TAG}
+                '''
+            }
+        }
 
         stage('7. Docker Hub Login') {
             steps {
@@ -177,6 +177,7 @@ pipeline {
                 '''
             }
         }
+    }
 
     post {
         success {
