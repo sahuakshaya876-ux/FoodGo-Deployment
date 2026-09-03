@@ -10,11 +10,12 @@ COPY src ./src
 RUN mvn -B clean package -DskipTests
 
 # ---------- Runtime stage ----------
-FROM eclipse-temurin:21-jre-alpine AS runtime
+FROM eclipse-temurin:21-jre-jammy AS runtime
 
 WORKDIR /app
 
-RUN addgroup -S foodgo && adduser -S foodgo -G foodgo
+RUN groupadd --system foodgo && \
+    useradd --system --gid foodgo foodgo
 
 COPY --from=build /build/target/foodgo-backend.jar app.jar
 
@@ -22,13 +23,12 @@ RUN chown foodgo:foodgo app.jar
 
 USER foodgo
 
-EXPOSE 8081
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
 EXPOSE 8080
 
 ENV JAVA_OPTS=""
+
 HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
-  CMD wget -qO- http://localhost:8080/actuator/health | grep -q '"status":"UP"' || exit 1
+    CMD wget -qO- http://localhost:8080/actuator/health | \
+    grep -q '"status":"UP"' || exit 1
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
