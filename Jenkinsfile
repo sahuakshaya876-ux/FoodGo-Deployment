@@ -153,7 +153,6 @@ pipeline {
             }
         }
 
-        stage('11. Health Check') {
     stage('11. Health Check') {
     steps {
         sh '''
