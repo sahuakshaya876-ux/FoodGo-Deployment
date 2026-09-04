@@ -154,29 +154,59 @@ pipeline {
         }
 
         stage('11. Health Check') {
-            steps {
-                sh '''
-                    set -e
+    stage('11. Health Check') {
+    steps {
+        sh '''
+            set -e
 
-                    BACKEND_POD=$(kubectl get pods \
-                      -n foodgo \
-                      -l app=foodgo-backend \
-                      --field-selector=status.phase=Running \
-                      -o jsonpath="{.items[0].metadata.name}")
+            echo "Waiting for a ready backend pod..."
 
-                    echo "Checking backend pod: $BACKEND_POD"
+            for i in $(seq 1 30); do
+                BACKEND_POD=$(kubectl get pods \
+                  -n foodgo \
+                  -l app=foodgo-backend \
+                  -o jsonpath='{range .items[?(@.status.phase=="Running")]}{.metadata.name}{"\\n"}{end}' \
+                  | while read pod; do
+                      [ -z "$pod" ] && continue
 
-                    kubectl exec \
-                      -n foodgo \
-                      "$BACKEND_POD" \
-                      -- wget -qO- \
-                      http://localhost:8080/actuator/health
+                      READY=$(kubectl get pod "$pod" -n foodgo \
+                        -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')
 
-                    echo ""
-                    echo "Backend health check passed."
-                '''
-            }
-        }
+                      DELETING=$(kubectl get pod "$pod" -n foodgo \
+                        -o jsonpath='{.metadata.deletionTimestamp}')
+
+                      if [ "$READY" = "True" ] && [ -z "$DELETING" ]; then
+                          echo "$pod"
+                          break
+                      fi
+                    done)
+
+                if [ -n "$BACKEND_POD" ]; then
+                    echo "Checking ready backend pod: $BACKEND_POD"
+                    break
+                fi
+
+                echo "No ready backend pod yet. Waiting..."
+                sleep 5
+            done
+
+            if [ -z "$BACKEND_POD" ]; then
+                echo "ERROR: No ready backend pod found."
+                kubectl get pods -n foodgo -l app=foodgo-backend -o wide
+                exit 1
+            fi
+
+            kubectl exec \
+              -n foodgo \
+              "$BACKEND_POD" \
+              -- wget -qO- \
+              http://localhost:8080/actuator/health
+
+            echo ""
+            echo "Backend health check passed."
+        '''
+    }
+}
     }
 
     post {
